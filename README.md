@@ -3,15 +3,23 @@ NOTE: Per the updated instruction on 9/16/24's lecture, Azure was left alone and
 
 ## GCP - Screenshots of VPC/VNet creation and IP Reservation
 ### Network Creation
+1. Created VPC network name
 ![Created VPC network name](gcp/network_creation/network_creation_1.png)
+2. Created VPC network subnet
 ![Created VPC network subnet](gcp/network_creation/network_creation_2.png)
+3. VPC network was successfully created
 ![VPC network creation success](gcp/network_creation/network_creation_3.png)
 
 ### IP Reservation
+1. Turned on HTTP and HTTPS traffic while creating VM
 ![Turn on HTTP and HTTPS traffic while creating virtual machine](gcp/ip_reservation/make_vm_1.png)
+2. VM was successfully made
 ![Virtual machine successfully made](gcp/ip_reservation/make_vm_2.png)
+3. Clicked "Reserve External Static IP Address" on VPC network page
 ![Clicked "Reserve External IP Address" link on VPC network page](gcp/ip_reservation/reservation_1.png)
+4. Named the static address, selected the region, and attached it to my VM instance
 ![Created static address name, selected the region, and where to attach it](gcp/ip_reservation/reservation_2.png)
+5. Reserving a static IP address was successfully done
 ![Static reserve IP address successfully made](gcp/ip_reservation/reservation_3.png)
 
 ## GCP - Attempts and Screenshots to Map IP Address to Domain
@@ -39,6 +47,3 @@ I was ultimately unable to map the IP address from GCP to a domain. Below are wh
 8. I did some further digging to see if it was truly possible to link a reserved IP address to a GitHub Pages site. Based on what I found from a few sources, it does not seem possible to link the IP address directly to the GitHub Pages site without giving the site a custom domain name first. 
 9. I researched for websites that offered free domain names that students could use for a short, temporary period of time. However, I was unable to find any.
 10. Obtaining a domain name seems to be mandatory to complete this part of the assignment. Alongside the tutorial I followed, other tutorials I came across also involved the users using their own domain name. Since it requires purchasing one, I was unsure what to do next from here.
-
-
-
