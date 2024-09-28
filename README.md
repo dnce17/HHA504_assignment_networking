@@ -1,8 +1,8 @@
 # HHA504 Networking Assignment
-NOTE: Per the updated instruction on 9/16/24's lecture, Azure was left alone and only GCP was completed.
 
-## GCP - Screenshots of VPC/VNet creation and IP Reservation
-### Network Creation
+## GCP
+### Screenshots of VPC/VNet creation and IP Reservation
+#### Network Creation
 1. Created VPC network name
 ![Created VPC network name](gcp/network_creation/network_creation_1.png)
 2. Created VPC network subnet
@@ -10,40 +10,50 @@ NOTE: Per the updated instruction on 9/16/24's lecture, Azure was left alone and
 3. VPC network was successfully created
 ![VPC network creation success](gcp/network_creation/network_creation_3.png)
 
-### IP Reservation
-1. Turned on HTTP and HTTPS traffic while creating VM
-![Turn on HTTP and HTTPS traffic while creating virtual machine](gcp/ip_reservation/make_vm_1.png)
-2. VM was successfully made
-![Virtual machine successfully made](gcp/ip_reservation/make_vm_2.png)
-3. Clicked "Reserve External Static IP Address" on VPC network page
-![Clicked "Reserve External IP Address" link on VPC network page](gcp/ip_reservation/reservation_1.png)
-4. Named the static address, selected the region, and attached it to my VM instance
-![Created static address name, selected the region, and where to attach it](gcp/ip_reservation/reservation_2.png)
-5. Reserving a static IP address was successfully done
-![Static reserve IP address successfully made](gcp/ip_reservation/reservation_3.png)
+#### Assign a Dedicated or Use Dynamic IP
+1. In VM creation, changed operating system to Ubuntu
+![Changed operating system to Ubuntu](gcp/ip_reservation/make_vm_1.png)
+2. Turned on HTTP and HTTPS traffic
+![Turn on HTTP and HTTPS traffic while creating virtual machine](gcp/ip_reservation/make_vm_2.png)
+3. VM was successfully made
+4. For this assignment, the dynamic public IP assigned by Azure was used
+![Virtual machine successfully made](gcp/ip_reservation/public_ip.png)
 
-## GCP - Attempts and Screenshots to Map IP Address to Domain
-I was ultimately unable to map the IP address from GCP to a domain. Below are what I tried:
+#### Configure Firewall Settings
+1. Typed "firewall" in GCP search bar and clicked "Firewall VPC Network"
+![Clicked "firewall" in results of search bar](gcp/firewall/go_to_firewall.png)
+2. Clicked "Create Firewall Rule" and configured it with the following:
+    * added a name
+    * "Targets" header --> All instances in the network 
+    * "Source IPv4 ranges" header --> 0.0.0.0/0
+    * Checked the "TCP" box and entered the port number that the Professor's Flask app from his hha-504-flask-networking repo is using, or 5007
+        * This repo will be cloned later on
+![configured firewall rule](gcp/firewall/rule_config.png)
+3. Clicked "Create" and the rule was successfully made
+![clicked "create" to create firewall rule](gcp/firewall/rule_created.png)
 
-1. Followed along with a YouTube tutorial to try mapping a reserved IP address to a domain name
-    * Video Name: [Setting Up Custom Domain With Google Cloud Compute Engine Instance](https://www.youtube.com/watch?v=eXtqqofrhOo)
-2. Enabled the Cloud DNS API
-3. Created a zone titled "test-net-zone" with a DNS name of my GitHub Pages site link
-![Created zone in Cloud DNS](gcp/dns/zone_creation.png)
-4. Created a record set by pasting the external IP of my VM instance (titled "test-instance) to the "IPv4 Address" box, then clicking "Create"
-5. After creation of record set, I clicked "Registrar Setup" at the top right of the page
-6. A message then appeared, which told me...
-    * the zone will not be usable until I register the related domain and configure the records with my registrar
-    * four name servers:
-        * ns-cloud-a1.googledomains.com
-        * ns-cloud-a2.googledomains.com
-        * ns-cloud-a3.googledomains.com
-        * ns-cloud-a4.googledomains.com
-7. The user in the YouTube tutorial pasted each of the above items into the name server section of his own domain. GitHub Pages did not have that section, so I attempted to save each of the above name servers to its "Custom domain" section. However, trying to save each one led to one of two types of errors:
-    * Custom domain name is already taken
-![Custom domain name is already taken](gcp/dns/error_1.png)
-    * DNS check unsuccessful
-![DNS check unsuccessful](gcp/dns/error_2.png)
-8. I did some further digging to see if it was truly possible to link a reserved IP address to a GitHub Pages site. Based on what I found from a few sources, it does not seem possible to link the IP address directly to the GitHub Pages site without giving the site a custom domain name first. 
-9. I researched for websites that offered free domain names that students could use for a short, temporary period of time. However, I was unable to find any.
-10. Obtaining a domain name seems to be mandatory to complete this part of the assignment. Alongside the tutorial I followed, other tutorials I came across also involved the users using their own domain name. Since it requires purchasing one, I was unsure what to do next from here.
+#### Steps and Screenshots to Map IP Address to Domain
+1. Created a record in Namecheap and...
+    * added a host name
+    * pasted in the public IP from the GCP VM instance
+    * set the TTL to lowest as possible (1 min in this case)
+    * saved all changes
+![record added in Namecheap's domain setting](gcp/dns/namecheap.png)
+2. Clicked "SSH" of the VM instance to open up a shell
+![ran SSH of VM instance](gcp/dns/ran_ssh.png)
+3. In the shell, the following commands (cmds) were ran in the order below:
+    * sudo apt-get update (NOTE: always run first when opening SSH to avoid potential errors later on)
+    * git clone https://github.com/hantswilliams/hha-504-flask-networking.git
+        * This repo contains the HTML that will appear after mapping is completed
+    * cd hha-504-flask-networking
+    * pip3 install -r requirements.txt
+    * sudo ufw allow 5007
+    * sudo ufw allow 80
+    * sudo ufw allow 443
+    * python3 app.py
+4. After running the last cmd, I typed 34.28.213.127:5007 into the search bar of one tab and python.dche.me:5007 of another tab. Both successsfully displayed the HTML from the cloned repo.
+    * NOTE
+        * 34.28.213.127:5007 follows format of (ip address):(port number)
+![HTML successfully displayed after entering 34.28.213.127:5007 to search bar](gcp/dns/enter_ip_n_port.png)
+        * python.dche.me:5007 follows (host name).(domain name):(port number)
+![HTML successfully displayed after entering python.dche.me:5007 to search bar](gcp/dns/enter_domain_n_port.png)
