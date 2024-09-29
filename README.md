@@ -51,8 +51,10 @@
     * sudo ufw allow 80
     * sudo ufw allow 443
     * python3 app.py
-4. After running the last cmd, I typed 34.28.213.127:5007 into the search bar of one tab and python.dche.me:5007 of another tab. Both successsfully displayed the HTML from the cloned repo.
-    * NOTE
+5. After running the last cmd, I typed 34.28.213.127:5007 into the search bar of one tab and python.dche.me:5007 of another tab. Both successfully displayed the HTML from the cloned repo.
+    * NOTES
+        * The website seemed to have taken a few minutes to successfully appear. While waiting, I used a [DNS lookup site](https://www.whatsmydns.net/dns-lookup/a-records) to see if the record has propagated across the Internet.
+            * I typed in "dche.me" in the website bar and viewed results globally 
         * 34.28.213.127:5007 follows format of (ip address):(port number)
 ![HTML successfully displayed after entering 34.28.213.127:5007 to search bar](gcp/dns/enter_ip_n_port.png)
         * python.dche.me:5007 follows (host name).(domain name):(port number)
