@@ -3,11 +3,11 @@
 ## Azure
 ### Network Creation
 1. Created VNet network name
-![Created VNet network name](azure/network_creation/network_creation_1.png)
+![Created VNet network name](img/azure/network_creation/network_creation_1.png)
 2. Created VNet network subnet
-![Created VNet network subnet](azure/network_creation/network_creation_2.png)
+![Created VNet network subnet](img/azure/network_creation/network_creation_2.png)
 3. VNet network was successfully created
-![VNet network creation success](azure/network_creation/network_creation_3.png)
+![VNet network creation success](img/azure/network_creation/network_creation_3.png)
 
 ### Assign a Dedicated or Use Dynamic IP
 1. Created a static public IP address
@@ -19,7 +19,7 @@
         * IP address assignment: Static
         * Routing preference: Microsoft network
     * Left everything else as default and created the IP address
-![created static public IP address](azure/ip_reservation/reservation.png)
+![created static public IP address](img/azure/ip_reservation/reservation.png)
 2. Created VM
     * Basics tab
         * Security Type: Standard
@@ -35,14 +35,14 @@
 
 ### Configure Firewall Settings
 1. Clicked the VM instance 
-![Clicked the VM instance](azure/firewall/firewall_1.png) 
+![Clicked the VM instance](img/azure/firewall/firewall_1.png) 
 2. Clicked "Networking settings," 
 3. Clicked "Create port rule," then "Inbound port rule"
-![Click networking settings, create port rule, then inbound port rule](azure/firewall/firewall_2.png) 
+![Click networking settings, create port rule, then inbound port rule](img/azure/firewall/firewall_2.png) 
 4. Changed "Destination port ranges" to the port that will be used (5007 in my case), then click "Add"
-![Change destination port ranges to the port that will be used](azure/firewall/firewall_3.png) 
+![Change destination port ranges to the port that will be used](img/azure/firewall/firewall_3.png) 
 5. Check to make sure the port was added successfully
-![Check that port was added successfully](azure/firewall/firewall_4.png) 
+![Check that port was added successfully](img/azure/firewall/firewall_4.png) 
 
 
 ### Steps and Screenshots to Map IP Address to Domain
@@ -51,7 +51,7 @@
     * pasted in the public IP from the GCP VM instance
     * set the TTL to lowest as possible (1 min in this case)
     * saved all changes
-![record added in Namecheap's domain setting](azure/dns/namecheap.png)
+![record added in Namecheap's domain setting](img/azure/dns/namecheap.png)
 2. Opened up terminal in own desktop and ran the follow commands (cmds):
     * ssh azureuser@20.84.76.176
         * Format: (VM username)@(VM IP address)
@@ -79,33 +79,33 @@
 ## GCP
 ### Network Creation
 1. Created VPC network name
-![Created VPC network name](gcp/network_creation/network_creation_1.png)
+![Created VPC network name](img/gcp/network_creation/network_creation_1.png)
 2. Created VPC network subnet
-![Created VPC network subnet](gcp/network_creation/network_creation_2.png)
+![Created VPC network subnet](img/gcp/network_creation/network_creation_2.png)
 3. VPC network was successfully created
-![VPC network creation success](gcp/network_creation/network_creation_3.png)
+![VPC network creation success](img/gcp/network_creation/network_creation_3.png)
 
 ### Assign a Dedicated or Use Dynamic IP
 1. In VM creation, changed operating system to Ubuntu
-![Changed operating system to Ubuntu](gcp/ip_reservation/make_vm_1.png)
+![Changed operating system to Ubuntu](img/gcp/ip_reservation/make_vm_1.png)
 2. Turned on HTTP and HTTPS traffic
-![Turn on HTTP and HTTPS traffic while creating virtual machine](gcp/ip_reservation/make_vm_2.png)
+![Turn on HTTP and HTTPS traffic while creating virtual machine](img/gcp/ip_reservation/make_vm_2.png)
 3. VM was successfully made
 4. For this assignment, the dynamic public IP assigned by Azure was used
-![Virtual machine successfully made](gcp/ip_reservation/public_ip.png)
+![Virtual machine successfully made](img/gcp/ip_reservation/public_ip.png)
 
 ### Configure Firewall Settings
 1. Typed "firewall" in GCP search bar and clicked "Firewall VPC Network"
-![Clicked "firewall" in results of search bar](gcp/firewall/go_to_firewall.png)
+![Clicked "firewall" in results of search bar](img/gcp/firewall/go_to_firewall.png)
 2. Clicked "Create Firewall Rule" and configured it with the following:
     * added a name
     * "Targets" header --> All instances in the network 
     * "Source IPv4 ranges" header --> 0.0.0.0/0
     * Checked the "TCP" box and entered the port number that the Professor's Flask app from his hha-504-flask-networking repo is using, or 5007
         * This repo will be cloned later on
-![configured firewall rule](gcp/firewall/rule_config.png)
+![configured firewall rule](img/gcp/firewall/rule_config.png)
 3. Clicked "Create" and the rule was successfully made
-![clicked "create" to create firewall rule](gcp/firewall/rule_created.png)
+![clicked "create" to create firewall rule](img/gcp/firewall/rule_created.png)
 
 ### Steps and Screenshots to Map IP Address to Domain
 1. Created a record in Namecheap and...
@@ -113,9 +113,9 @@
     * pasted in the public IP from the GCP VM instance
     * set the TTL to lowest as possible (1 min in this case)
     * saved all changes
-![record added in Namecheap's domain setting](gcp/dns/namecheap.png)
+![record added in Namecheap's domain setting](img/gcp/dns/namecheap.png)
 2. Clicked "SSH" of the VM instance to open up a shell
-![ran SSH of VM instance](gcp/dns/ran_ssh.png)
+![ran SSH of VM instance](img/gcp/dns/ran_ssh.png)
 3. In the shell, the following commands (cmds) were ran in the order below:
     * sudo apt-get update (NOTE: always run first when opening SSH to avoid potential errors later on)
     * sudo apt install python3-pip
@@ -132,6 +132,6 @@
         * The website seemed to have taken a few minutes to successfully appear. While waiting, I used a [DNS lookup site](https://www.whatsmydns.net/dns-lookup/a-records) to see if the record has propagated across the Internet.
             * I typed in "dche.me" in the website bar and viewed results globally 
         * 34.28.213.127:5007 follows format of (ip address):(port number)
-![HTML successfully displayed after entering 34.28.213.127:5007 to search bar](gcp/dns/enter_ip_n_port.png)
+![HTML successfully displayed after entering 34.28.213.127:5007 to search bar](img/gcp/dns/enter_ip_n_port.png)
         * python.dche.me:5007 follows (host name).(domain name):(port number)
-![HTML successfully displayed after entering python.dche.me:5007 to search bar](gcp/dns/enter_domain_n_port.png)
+![HTML successfully displayed after entering python.dche.me:5007 to search bar](img/gcp/dns/enter_domain_n_port.png)
