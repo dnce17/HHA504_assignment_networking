@@ -75,6 +75,9 @@
     * python3 app.py
 3. Typed 34.28.213.127:5007 into one tab and http://flask.dche.me:5007 in another. Both successfully displayed.
     * KEY NOTE: adding http:// prior to subdomain name is required or else the site will not connect
+![HTML successfully displayed after entering 20.84.76.176:5007 to search bar](img/azure/dns/enter_ip_n_port.png)
+        * python.dche.me:5007 follows (host name).(domain name):(port number)
+![HTML successfully displayed after entering flask.dche.me:5007 to search bar](img/azure/dns/enter_domain_n_port.png)
 
 ## GCP
 ### Network Creation
